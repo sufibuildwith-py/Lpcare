@@ -19,7 +19,7 @@ export const MarqueeSection: React.FC = () => {
           if (sectionRef.current) {
             const rect = sectionRef.current.getBoundingClientRect()
             const sectionTop = rect.top + window.scrollY
-            const offset = (window.scrollY - sectionTop + window.innerHeight) * 0.28
+            const offset = (window.scrollY - sectionTop + window.innerHeight) * 0.35
             setScrollOffset(offset)
           }
           ticking = false
@@ -37,6 +37,12 @@ export const MarqueeSection: React.FC = () => {
       window.removeEventListener('resize', handleScroll)
     }
   }, [])
+
+  // Calculate distinct scroll translations:
+  // Row 1 moves left-to-right.
+  // Row 2 moves right-to-left at an accelerated speed (1.85x) so it never feels slow.
+  const row1Translate = scrollOffset * 0.8 - 400
+  const row2Translate = -(scrollOffset * 1.85) - 200
 
   return (
     <section
@@ -67,7 +73,7 @@ export const MarqueeSection: React.FC = () => {
         <div
           className="flex gap-4 sm:gap-6 w-max will-change-transform"
           style={{
-            transform: `translateX(${scrollOffset - 350}px)`,
+            transform: `translateX(${row1Translate}px)`,
           }}
         >
           {tripledRow1.map((item, index) => (
@@ -99,11 +105,11 @@ export const MarqueeSection: React.FC = () => {
           ))}
         </div>
 
-        {/* ROW 2: Moves LEFT on scroll */}
+        {/* ROW 2: Moves LEFT on scroll (Accelerated 1.85x speed for snappy, brisk flow) */}
         <div
           className="flex gap-4 sm:gap-6 w-max will-change-transform"
           style={{
-            transform: `translateX(-${scrollOffset - 350}px)`,
+            transform: `translateX(${row2Translate}px)`,
           }}
         >
           {tripledRow2.map((item, index) => (
@@ -138,3 +144,5 @@ export const MarqueeSection: React.FC = () => {
     </section>
   )
 }
+
+export default MarqueeSection

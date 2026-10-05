@@ -62,7 +62,7 @@ export const AboutTrustSection: React.FC<AboutTrustSectionProps> = ({ onOpenCont
         <div className="mt-10 sm:mt-14 max-w-3xl text-center">
           <AnimatedText
             text={statement}
-            className="text-[#11100F]/85 font-medium text-center leading-relaxed text-base sm:text-lg md:text-xl"
+            className="text-[#11100F] font-bold text-center leading-relaxed text-lg sm:text-xl md:text-2xl"
           />
         </div>
 
