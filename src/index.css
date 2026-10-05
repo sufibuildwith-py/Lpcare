@@ -2,40 +2,118 @@
 @tailwind components;
 @tailwind utilities;
 
-*, *::before, *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+@layer base {
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    scroll-behavior: auto;
+    background-color: #11100F;
+    color: #F4F0E8;
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    overflow-x: hidden;
+    background-color: #11100F;
+    color: #F4F0E8;
+    min-height: 100vh;
+  }
 }
 
-html, body, #root {
-  background-color: #0C0C0C;
-  font-family: 'Kanit', sans-serif;
-  color: #D7E2EA;
-  overflow-x: clip;
+/* ==========================================================================
+   PREMIUM MATERIAL & GLASS STYLES
+   ========================================================================== */
+
+/* Dark frosted glass */
+.glass-dark {
+  background: linear-gradient(145deg, rgba(244, 240, 232, 0.04), rgba(17, 16, 15, 0.75));
+  border: 1px solid rgba(244, 240, 232, 0.10);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: inset 0 1px 0 rgba(244, 240, 232, 0.12), 0 16px 36px -12px rgba(0, 0, 0, 0.5);
 }
 
-.hero-heading {
-  background: linear-gradient(180deg, #646973 0%, #BBCCD7 100%);
+/* Maroon accent glass */
+.glass-maroon {
+  background: linear-gradient(145deg, rgba(100, 19, 28, 0.35), rgba(69, 11, 18, 0.85));
+  border: 1px solid rgba(132, 27, 38, 0.4);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: inset 0 1px 0 rgba(244, 240, 232, 0.2), 0 16px 36px -10px rgba(69, 11, 18, 0.5);
+}
+
+/* Sand / Off-white light glass for editorial sections */
+.glass-sand {
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.8), rgba(244, 240, 232, 0.65));
+  border: 1px solid rgba(17, 16, 15, 0.08);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 12px 28px -8px rgba(17, 16, 15, 0.06);
+}
+
+/* Metallic gradient text */
+.text-metallic {
+  background: linear-gradient(180deg, #FFFFFF 0%, #D8D1C4 50%, #817C76 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
-/* Custom scrollbar */
+.text-maroon-gradient {
+  background: linear-gradient(135deg, #A82C38 0%, #64131C 50%, #450B12 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Noise overlay */
+.bg-noise {
+  background-image: radial-gradient(rgba(244, 240, 232, 0.03) 1px, transparent 0);
+  background-size: 24px 24px;
+}
+
+/* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #0C0C0C;
+  background: #11100F;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #252525;
-  border-radius: 4px;
+  background: #2A2724;
+  border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #3a3a3a;
+  background: #64131C;
+}
+
+/* Lenis smooth scrolling helper */
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
 }
