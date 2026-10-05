@@ -218,8 +218,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenContact }) => {
           {/* 
             UNIFIED HORIZONTAL WORDMARK LOCKUP
             - LAPTOP and CARE are on the EXACT SAME horizontal line/baseline
-            - The silver laptop sits absolute in the center, overlapping in front (z-20)
-            - Not stacked vertically
+            - The silver laptop sits centered in the middle of the lockup in front (z-20)
+            - Using `absolute inset-0 flex items-center justify-center` guarantees exact visual centering
           */}
           <div className="relative w-full flex items-center justify-center select-none py-4 sm:py-6 md:py-8">
             {/* The Unified Typographic Line */}
@@ -247,70 +247,73 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenContact }) => {
 
             {/* 
               THE SILVER LAPTOP OVERLAY (Untinted, natural finish)
-              - position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%)
+              - Center overlay with absolute inset-0 flex items-center justify-center
+              - Placed dead center between LAPTOP and CARE
               - z-index: 20 (sits IN FRONT of the typography)
               - Overlaps the middle space and the inner edges of LAPTOP and CARE
               - Interactive 3D tilt tracking (desktop) & subtle breathing (mobile)
             */}
-            <motion.div
-              style={{
-                scale: laptopScale,
-                opacity: laptopOpacity,
-                perspective: 1200,
-              }}
-              initial={{ opacity: 0, scale: 0.88 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.9, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
-              className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20 pointer-events-auto"
-              onMouseEnter={() => setIsHovered(true)}
-              onMouseLeave={() => setIsHovered(false)}
-            >
-              {/* Interactive Spring Container with Ambient Float fallback for mobile */}
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-20">
               <motion.div
-                animate={
-                  isHovered
-                    ? {
-                        rotateX: tiltX,
-                        rotateY: tiltY,
-                        x: translateX,
-                        y: translateY,
-                      }
-                    : {
-                        rotateX: [0, 2, 0, -2, 0],
-                        rotateY: [0, -3, 0, 3, 0],
-                        y: [0, -6, 0, 4, 0],
-                      }
-                }
-                transition={
-                  isHovered
-                    ? {
-                        type: 'spring',
-                        stiffness: 130,
-                        damping: 18,
-                        mass: 0.75,
-                      }
-                    : {
-                        duration: 8,
-                        repeat: Infinity,
-                        ease: 'easeInOut',
-                      }
-                }
-                style={{ transformStyle: 'preserve-3d' }}
-                className="relative flex items-center justify-center will-change-transform group cursor-grab active:cursor-grabbing"
+                style={{
+                  scale: laptopScale,
+                  opacity: laptopOpacity,
+                  perspective: 1200,
+                }}
+                initial={{ opacity: 0, scale: 0.88 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.9, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                className="pointer-events-auto flex items-center justify-center"
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={() => setIsHovered(false)}
               >
-                {/* Chassis contact shadow */}
-                <div className="absolute -bottom-3 sm:-bottom-4 left-1/2 -translate-x-1/2 w-4/5 h-6 sm:h-8 bg-black/70 rounded-full blur-xl pointer-events-none" />
+                {/* Interactive Spring Container with Ambient Float fallback for mobile */}
+                <motion.div
+                  animate={
+                    isHovered
+                      ? {
+                          rotateX: tiltX,
+                          rotateY: tiltY,
+                          x: translateX,
+                          y: translateY,
+                        }
+                      : {
+                          rotateX: [0, 2, 0, -2, 0],
+                          rotateY: [0, -3, 0, 3, 0],
+                          y: [0, -6, 0, 4, 0],
+                        }
+                  }
+                  transition={
+                    isHovered
+                      ? {
+                          type: 'spring',
+                          stiffness: 130,
+                          damping: 18,
+                          mass: 0.75,
+                        }
+                      : {
+                          duration: 8,
+                          repeat: Infinity,
+                          ease: 'easeInOut',
+                        }
+                  }
+                  style={{ transformStyle: 'preserve-3d' }}
+                  className="relative flex items-center justify-center will-change-transform group cursor-grab active:cursor-grabbing"
+                >
+                  {/* Chassis contact shadow */}
+                  <div className="absolute -bottom-3 sm:-bottom-4 left-1/2 -translate-x-1/2 w-4/5 h-6 sm:h-8 bg-black/70 rounded-full blur-xl pointer-events-none" />
 
-                {/* Silver Laptop Asset (Untinted, Metallic Neutral Silver) */}
-                <img
-                  src="/silver-laptop.png"
-                  alt="Laptop Care Precision Engineering"
-                  className="w-[170px] sm:w-[260px] md:w-[360px] lg:w-[450px] xl:w-[500px] max-w-none h-auto object-contain drop-shadow-[0_20px_45px_rgba(0,0,0,0.9)] filter contrast-[1.02] select-none pointer-events-none"
-                  loading="eager"
-                  draggable={false}
-                />
+                  {/* Silver Laptop Asset (Untinted, Metallic Neutral Silver) */}
+                  <img
+                    src="/silver-laptop.png"
+                    alt="Laptop Care Precision Engineering"
+                    className="w-[170px] sm:w-[260px] md:w-[360px] lg:w-[450px] xl:w-[500px] max-w-none h-auto object-contain drop-shadow-[0_20px_45px_rgba(0,0,0,0.9)] filter contrast-[1.02] select-none pointer-events-none"
+                    loading="eager"
+                    draggable={false}
+                  />
+                </motion.div>
               </motion.div>
-            </motion.div>
+            </div>
           </div>
 
           {/* Subtitle Statement */}
