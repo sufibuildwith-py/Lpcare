@@ -187,7 +187,7 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
                       className="w-full px-3 py-2.5 rounded-xl bg-dark-pure/70 border border-sand/15 text-sand text-sm focus:outline-none focus:border-maroon-light transition-colors"
                     >
                       <option value="Kanpur (Somdutt Plaza)">Kanpur Service Centre</option>
-                      <option value="Prayagraj (Soon to be added)">Prayagraj (Soon to be added)</option>
+                      <option value="Prayagraj (Indira Bhawan, Civil Lines)">Prayagraj Service Centre</option>
                     </select>
                   </div>
                   <div>

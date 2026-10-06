@@ -24,7 +24,7 @@ export const Footer: React.FC = () => {
 
             <div className="flex items-center gap-2 text-xs font-mono text-sand/50 mt-1">
               <span className="w-2 h-2 rounded-full bg-emerald-500 inline-block" />
-              <span>Service Centre in Kanpur · Prayagraj (Soon to be added)</span>
+              <span>Active Service Centres in Kanpur &amp; Prayagraj</span>
             </div>
           </div>
 
@@ -53,9 +53,9 @@ export const Footer: React.FC = () => {
                 <MapPin className="w-3.5 h-3.5 text-maroon-light shrink-0 mt-0.5" />
                 <span>Third floor somdutt plaza, Landmark, Kanpur, UP</span>
               </div>
-              <div className="flex items-center gap-2">
-                <MapPin className="w-3.5 h-3.5 text-sand/40 shrink-0" />
-                <span className="text-sand/50 italic">Prayagraj: soon to be added</span>
+              <div className="flex items-start gap-2">
+                <MapPin className="w-3.5 h-3.5 text-maroon-light shrink-0 mt-0.5" />
+                <span>B59, Indira Bhawan, Civil Lines, Prayagraj, UP 211001</span>
               </div>
               <div className="flex items-center gap-2">
                 <Phone className="w-3.5 h-3.5 text-emerald-400 shrink-0" />

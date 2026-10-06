@@ -323,9 +323,13 @@ export const KANPUR_CONTACT = {
 export const PRAYAGRAJ_CONTACT = {
   city: 'PRAYAGRAJ',
   name: 'Prayagraj Service Centre',
-  address: 'soon to be added',
-  phone: 'soon to be added',
-  hours: 'soon to be added',
+  address: 'B59, Indira Bhawan, Civil Lines, Prayagraj, Uttar Pradesh — 211001',
+  phone: '+91 98898 80973',
+  phoneSecondary: '+91 70075 48704',
+  phoneDisplay: '+91 98898 80973 / +91 70075 48704',
+  phoneLink: 'tel:+919889880973',
+  phoneSecondaryLink: 'tel:+917007548704',
+  hours: 'Mon–Sat: Open 24x7 · Sunday: Closed',
 }
 
 export interface LocationHub {
@@ -334,6 +338,8 @@ export interface LocationHub {
   address: string
   phone: string
   phoneLink?: string
+  secondaryPhone?: string
+  secondaryPhoneLink?: string
   whatsappUrl?: string
   hours: string
   services: string[]
@@ -355,18 +361,22 @@ export const LOCATIONS_DATA: LocationHub[] = [
       'Display, battery, keyboard & hinge replacement',
       'Chip-level motherboard & micro-soldering repair',
     ],
-    ctaText: 'WhatsApp Kanpur Centre',
+    ctaText: 'WhatsApp Kanpur Desk',
   },
   {
     city: 'PRAYAGRAJ',
-    isOperational: false,
-    address: 'soon to be added',
-    phone: 'soon to be added',
-    hours: 'soon to be added',
+    isOperational: true,
+    address: 'B59, Indira Bhawan, Civil Lines, Prayagraj, Uttar Pradesh — 211001',
+    phone: '+91 98898 80973',
+    phoneLink: 'tel:+919889880973',
+    secondaryPhone: '+91 70075 48704',
+    secondaryPhoneLink: 'tel:+917007548704',
+    hours: 'Mon–Sat: Open 24x7 · Sunday: Closed',
     services: [
-      'soon to be added',
+      'Walk-in hardware diagnosis & assessment',
+      'Display, battery, keyboard & hinge replacement',
+      'Chip-level motherboard & micro-soldering repair',
     ],
-    ctaText: 'Soon to be added',
-    ctaDisabled: true,
+    ctaText: 'Call Prayagraj Desk',
   },
 ]

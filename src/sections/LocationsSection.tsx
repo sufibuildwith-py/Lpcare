@@ -34,7 +34,7 @@ export const LocationsSection: React.FC<LocationsSectionProps> = () => {
               “Local expertise. Laptop-level precision.”
             </p>
             <p className="text-xs sm:text-sm text-[#11100F]/70 font-light mt-1">
-              Active service centre operating in Kanpur, with our Prayagraj service centre location soon to be announced.
+              Active service centres operating across Kanpur and Prayagraj with full workbench diagnostic capabilities.
             </p>
           </div>
         </div>
@@ -68,7 +68,7 @@ export const LocationsSection: React.FC<LocationsSectionProps> = () => {
                   ) : (
                     <div className="flex items-center gap-2 text-xs font-mono text-[#11100F]/55 bg-[#11100F]/5 border border-[#11100F]/10 px-3 py-1 rounded-full">
                       <span className="w-1.5 h-1.5 rounded-full bg-amber-500" />
-                      <span className="uppercase font-semibold tracking-wider">Soon to be added</span>
+                      <span className="uppercase font-semibold tracking-wider">Upcoming Centre</span>
                     </div>
                   )}
                 </div>
@@ -85,12 +85,25 @@ export const LocationsSection: React.FC<LocationsSectionProps> = () => {
                   <div className="flex items-center gap-3">
                     <Phone className="w-4 h-4 text-emerald-600 shrink-0" />
                     {loc.isOperational ? (
-                      <a
-                        href={loc.phoneLink || `tel:${loc.phone}`}
-                        className="font-mono text-xs font-semibold text-[#11100F] hover:text-[#64131C] transition-colors"
-                      >
-                        {loc.phone}
-                      </a>
+                      <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1">
+                        <a
+                          href={loc.phoneLink || `tel:${loc.phone.replace(/\s+/g, '')}`}
+                          className="font-mono text-xs font-semibold text-[#11100F] hover:text-[#64131C] transition-colors"
+                        >
+                          {loc.phone}
+                        </a>
+                        {loc.secondaryPhone && (
+                          <>
+                            <span className="text-[#11100F]/30 select-none">·</span>
+                            <a
+                              href={loc.secondaryPhoneLink || `tel:${loc.secondaryPhone.replace(/\s+/g, '')}`}
+                              className="font-mono text-xs font-semibold text-[#11100F] hover:text-[#64131C] transition-colors"
+                            >
+                              {loc.secondaryPhone}
+                            </a>
+                          </>
+                        )}
+                      </div>
                     ) : (
                       <span className="font-mono text-xs text-[#11100F]/50 italic">
                         {loc.phone}
@@ -123,7 +136,7 @@ export const LocationsSection: React.FC<LocationsSectionProps> = () => {
               {/* Action Button Row */}
               <div className="mt-8 pt-6 border-t border-[#11100F]/10 flex flex-col sm:flex-row items-center justify-between gap-4">
                 <span className="text-xs font-mono text-[#11100F]/60">
-                  {loc.isOperational ? 'Direct Workbench WhatsApp Support' : 'Location details soon to be added'}
+                  {loc.isOperational ? (loc.whatsappUrl ? 'Direct Workbench WhatsApp Support' : 'Direct Workbench Phone Support') : 'Location details coming soon'}
                 </span>
 
                 {loc.isOperational && loc.whatsappUrl ? (
@@ -134,11 +147,19 @@ export const LocationsSection: React.FC<LocationsSectionProps> = () => {
                     className="w-full sm:w-auto px-6 py-2.5 rounded-full bg-[#64131C] hover:bg-[#841B26] text-sand font-bold text-xs uppercase tracking-wider transition-all duration-300 flex items-center justify-center gap-2 shadow-md active:scale-95"
                   >
                     <MessageSquare className="w-3.5 h-3.5 text-emerald-400" />
-                    <span>WhatsApp Kanpur Desk</span>
+                    <span>{loc.ctaText}</span>
+                  </a>
+                ) : loc.isOperational ? (
+                  <a
+                    href={loc.phoneLink || `tel:${loc.phone.replace(/\s+/g, '')}`}
+                    className="w-full sm:w-auto px-6 py-2.5 rounded-full bg-[#64131C] hover:bg-[#841B26] text-sand font-bold text-xs uppercase tracking-wider transition-all duration-300 flex items-center justify-center gap-2 shadow-md active:scale-95"
+                  >
+                    <Phone className="w-3.5 h-3.5 text-sand" />
+                    <span>{loc.ctaText}</span>
                   </a>
                 ) : (
                   <div className="w-full sm:w-auto px-6 py-2.5 rounded-full bg-[#11100F]/10 text-[#11100F]/45 font-mono font-semibold text-xs uppercase tracking-wider text-center cursor-default select-none border border-[#11100F]/10">
-                    Soon to be added
+                    Coming Soon
                   </div>
                 )}
               </div>

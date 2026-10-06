@@ -45,7 +45,7 @@ export const FinalCTASection: React.FC<FinalCTASectionProps> = ({ onOpenContact 
 
         <FadeIn delay={0.3} y={20}>
           <p className="mt-2 text-xs sm:text-sm text-sand/55 font-light max-w-lg">
-            Certified chip-level diagnostics at our Kanpur service centre (Prayagraj soon to be added). Get a clear explanation and verified quote before any work starts.
+            Certified chip-level diagnostics at our Kanpur and Prayagraj service centres. Get a clear explanation and verified quote before any work starts.
           </p>
         </FadeIn>
 
