@@ -140,8 +140,9 @@ export function useDraggableInfiniteReel({
       { rootMargin: '250px 0px' }
     )
 
-    if (sectionRef.current) {
-      intersectionObserver.observe(sectionRef.current)
+    const targetElement = sectionRef.current || viewportRef.current
+    if (targetElement) {
+      intersectionObserver.observe(targetElement)
     } else {
       startTicker()
     }
