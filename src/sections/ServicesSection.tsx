@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { SERVICES_DATA, type ServicePillar } from '../data/repairData'
 import { useDraggableInfiniteReel } from '../hooks/useDraggableInfiniteReel'
@@ -54,6 +54,9 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onOpenContact 
   const topItems = [...topServices, ...topServices]
   const bottomItems = [...bottomServices, ...bottomServices]
 
+  // Card pointer position tracking for robust tap/click detection
+  const cardPointerDownPos = useRef<{ x: number; y: number }>({ x: 0, y: 0 })
+
   // Render a short, slim horizontal technical service plate (ratio ~5:1 / ~6:1)
   const renderServiceCard = (
     service: ServicePillar,
@@ -66,7 +69,20 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onOpenContact 
       className="w-[84vw] sm:w-[420px] md:w-[460px] lg:w-[500px] shrink-0"
     >
       <div
-        onClick={() => {
+        onPointerDown={(e) => {
+          cardPointerDownPos.current = { x: e.clientX, y: e.clientY }
+        }}
+        onPointerUp={(e) => {
+          const dist = Math.hypot(
+            e.clientX - cardPointerDownPos.current.x,
+            e.clientY - cardPointerDownPos.current.y
+          )
+          if (dist < 6 && !reel.justDraggedRef.current) {
+            setSelectedService(service)
+          }
+        }}
+        onClick={(e) => {
+          e.stopPropagation()
           if (reel.justDraggedRef.current) return
           setSelectedService(service)
         }}
@@ -234,7 +250,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onOpenContact 
           ========================================================================= */}
       <AnimatePresence>
         {selectedService && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
             {/* Backdrop */}
             <motion.div
               initial={{ opacity: 0 }}

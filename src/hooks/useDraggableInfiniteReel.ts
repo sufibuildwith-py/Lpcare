@@ -153,34 +153,54 @@ export function useDraggableInfiniteReel({
     }
   }, [prefersReducedMotion])
 
+  const isPointerDownRef = useRef<boolean>(false)
+  const pointerDownPosRef = useRef<{ x: number; y: number }>({ x: 0, y: 0 })
+
   // 4. Pointer and touch drag system
   const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
     if (e.button !== 0 && e.pointerType === 'mouse') return
-    isDraggingRef.current = true
-    setIsDragging(true)
+    isPointerDownRef.current = true
     hasDraggedRef.current = false
+    isDraggingRef.current = false
+    pointerDownPosRef.current = { x: e.clientX, y: e.clientY }
     lastPointerXRef.current = e.clientX
     lastPointerTimeRef.current = performance.now()
     pointerDeltaHistoryRef.current = []
-
-    try {
-      e.currentTarget.setPointerCapture(e.pointerId)
-    } catch {
-      // Fallback
-    }
+    // NOTE: Defer pointer capture until movement exceeds threshold
+    // so clicks/taps on child items can fire reliably without being hijacked.
   }
 
   const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
-    if (!isDraggingRef.current) return
+    if (!isPointerDownRef.current) return
     const now = performance.now()
+    const totalDist = Math.hypot(
+      e.clientX - pointerDownPosRef.current.x,
+      e.clientY - pointerDownPosRef.current.y
+    )
+
+    // Only engage drag and capture pointer if the user has moved past the threshold (5px)
+    if (!hasDraggedRef.current) {
+      if (totalDist > 5) {
+        hasDraggedRef.current = true
+        isDraggingRef.current = true
+        setIsDragging(true)
+        try {
+          e.currentTarget.setPointerCapture(e.pointerId)
+        } catch {
+          // Fallback
+        }
+        lastPointerXRef.current = e.clientX
+        lastPointerTimeRef.current = now
+      } else {
+        return
+      }
+    }
+
     const dx = e.clientX - lastPointerXRef.current
     const dt = (now - lastPointerTimeRef.current) / 1000
 
     if (Math.abs(dx) > 0) {
       xRef.current += dx
-      if (Math.abs(dx) > 4 || Math.abs(e.movementX) > 4) {
-        hasDraggedRef.current = true
-      }
 
       if (dt > 0.001) {
         const instantaneousVelocity = dx / dt
@@ -212,32 +232,39 @@ export function useDraggableInfiniteReel({
   }
 
   const handlePointerUp = (e: React.PointerEvent<HTMLDivElement>) => {
-    if (!isDraggingRef.current) return
-    isDraggingRef.current = false
-    setIsDragging(false)
+    if (!isPointerDownRef.current) return
+    isPointerDownRef.current = false
 
-    try {
-      e.currentTarget.releasePointerCapture(e.pointerId)
-    } catch {
-      // Fallback
-    }
-
-    // Weighted release momentum
-    if (pointerDeltaHistoryRef.current.length > 0) {
-      const totalDx = pointerDeltaHistoryRef.current.reduce((sum, item) => sum + item.dx, 0)
-      const totalDt = pointerDeltaHistoryRef.current.reduce((sum, item) => sum + item.dt, 0)
-      if (totalDt > 0.005) {
-        const avgVelocity = totalDx / totalDt
-        velocityRef.current = Math.max(-1200, Math.min(1200, avgVelocity))
-      }
-    }
-
-    // Suppress child click triggers when dragging
     if (hasDraggedRef.current) {
+      isDraggingRef.current = false
+      setIsDragging(false)
+
+      try {
+        e.currentTarget.releasePointerCapture(e.pointerId)
+      } catch {
+        // Fallback
+      }
+
+      // Weighted release momentum
+      if (pointerDeltaHistoryRef.current.length > 0) {
+        const totalDx = pointerDeltaHistoryRef.current.reduce((sum, item) => sum + item.dx, 0)
+        const totalDt = pointerDeltaHistoryRef.current.reduce((sum, item) => sum + item.dt, 0)
+        if (totalDt > 0.005) {
+          const avgVelocity = totalDx / totalDt
+          velocityRef.current = Math.max(-1200, Math.min(1200, avgVelocity))
+        }
+      }
+
+      // Suppress child click triggers when user was actively dragging
       justDraggedRef.current = true
       setTimeout(() => {
         justDraggedRef.current = false
-      }, 70)
+      }, 90)
+    } else {
+      // User clicked or tapped without dragging
+      isDraggingRef.current = false
+      setIsDragging(false)
+      justDraggedRef.current = false
     }
   }
 
