@@ -48,9 +48,16 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenContact }) => {
               <span className="font-extrabold uppercase tracking-tight text-sand text-sm sm:text-base leading-none group-hover:text-white transition-colors">
                 Laptop<span className="text-maroon-light">Care</span>
               </span>
-              <span className="text-[9px] sm:text-[10px] uppercase font-mono tracking-widest text-muted-light mt-0.5 flex items-center gap-1">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse inline-block" />
-                Kanpur • Prayagraj
+              <span className="text-[9px] sm:text-[10px] uppercase font-mono tracking-widest text-muted-light mt-0.5 flex items-center gap-1.5">
+                <span className="flex items-center gap-1">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse inline-block" />
+                  Kanpur
+                </span>
+                <span className="text-sand/30">•</span>
+                <span className="flex items-center gap-1">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse inline-block" />
+                  Prayagraj
+                </span>
               </span>
             </div>
           </a>

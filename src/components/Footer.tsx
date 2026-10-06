@@ -57,16 +57,62 @@ export const Footer: React.FC = () => {
                 <MapPin className="w-3.5 h-3.5 text-maroon-light shrink-0 mt-0.5" />
                 <span>B59, Indira Bhawan, Civil Lines, Prayagraj, UP 211001</span>
               </div>
-              <div className="flex items-center gap-2">
+              {/* Kanpur Contact */}
+              <div className="flex items-center gap-2 pt-1 border-t border-sand/10">
                 <Phone className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-                <a
-                  href="https://wa.me/918795530133"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="font-mono hover:text-emerald-400 transition-colors"
-                >
-                  +918795530133
-                </a>
+                <div className="flex items-center gap-1.5 font-mono text-xs">
+                  <span className="text-[10px] text-sand/50 uppercase tracking-wider font-semibold">Kanpur:</span>
+                  <a
+                    href="https://wa.me/918795530133"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-emerald-400 transition-colors"
+                  >
+                    +918795530133
+                  </a>
+                </div>
+              </div>
+
+              {/* Prayagraj Contacts */}
+              <div className="flex items-start gap-2">
+                <Phone className="w-3.5 h-3.5 text-emerald-400 shrink-0 mt-0.5" />
+                <div className="flex flex-col gap-1 font-mono text-xs">
+                  <span className="text-[10px] text-sand/50 uppercase tracking-wider font-semibold">Prayagraj:</span>
+                  <div className="flex items-center gap-2">
+                    <a
+                      href="tel:+919889880973"
+                      className="hover:text-emerald-400 transition-colors"
+                    >
+                      +91 98898 80973
+                    </a>
+                    <a
+                      href="https://wa.me/919889880973"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-[9px] text-emerald-400 hover:text-emerald-300 bg-emerald-500/10 px-1.5 py-0.5 rounded border border-emerald-500/20 font-sans uppercase tracking-wider"
+                      title="WhatsApp +91 98898 80973"
+                    >
+                      WA
+                    </a>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <a
+                      href="tel:+917007548704"
+                      className="hover:text-emerald-400 transition-colors"
+                    >
+                      +91 70075 48704
+                    </a>
+                    <a
+                      href="https://wa.me/917007548704"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-[9px] text-emerald-400 hover:text-emerald-300 bg-emerald-500/10 px-1.5 py-0.5 rounded border border-emerald-500/20 font-sans uppercase tracking-wider"
+                      title="WhatsApp +91 70075 48704"
+                    >
+                      WA
+                    </a>
+                  </div>
+                </div>
               </div>
               <div className="flex items-center gap-2">
                 <Mail className="w-3.5 h-3.5 text-sand/50 shrink-0" />
