@@ -1,49 +1,20 @@
 import React, { useRef } from 'react'
 import { motion, useScroll, useTransform, MotionValue } from 'framer-motion'
 
-interface CharacterProps {
-  char: string
+interface WordProps {
+  word: string
   progress: MotionValue<number>
   range: [number, number]
 }
 
-const Character: React.FC<CharacterProps> = ({ char, progress, range }) => {
+const Word: React.FC<WordProps> = ({ word, progress, range }) => {
   // Smoothly transform from muted charcoal (0.28) to deep pitch-black (1) on light background
   const opacity = useTransform(progress, range, [0.28, 1])
 
   return (
-    <motion.span style={{ opacity }} className="inline-block select-text">
-      {char === ' ' ? '\u00A0' : char}
+    <motion.span style={{ opacity }} className="inline-block whitespace-nowrap select-text">
+      {word}
     </motion.span>
-  )
-}
-
-interface WordProps {
-  word: string
-  progress: MotionValue<number>
-  startIndex: number
-  totalChars: number
-}
-
-const Word: React.FC<WordProps> = ({ word, progress, startIndex, totalChars }) => {
-  const characters = word.split('')
-
-  return (
-    <span className="inline-block whitespace-nowrap">
-      {characters.map((char, i) => {
-        const charIndex = startIndex + i
-        const start = charIndex / totalChars
-        const end = (charIndex + 1) / totalChars
-        return (
-          <Character
-            key={i}
-            char={char}
-            progress={progress}
-            range={[start, end]}
-          />
-        )
-      })}
-    </span>
   )
 }
 
@@ -63,9 +34,7 @@ export const AnimatedText: React.FC<AnimatedTextProps> = ({
   })
 
   const words = text.split(' ')
-  const totalChars = text.length
-
-  let currentStartIndex = 0
+  const totalWords = words.length
 
   return (
     <p
@@ -74,15 +43,14 @@ export const AnimatedText: React.FC<AnimatedTextProps> = ({
       style={{ fontSize: 'clamp(1.1rem, 2.2vw, 1.55rem)' }}
     >
       {words.map((word, wordIdx) => {
-        const startIndex = currentStartIndex
-        currentStartIndex += word.length + 1 // account for space
+        const start = wordIdx / totalWords
+        const end = (wordIdx + 1) / totalWords
         return (
           <Word
             key={wordIdx}
             word={word}
             progress={scrollYProgress}
-            startIndex={startIndex}
-            totalChars={totalChars}
+            range={[start, end]}
           />
         )
       })}

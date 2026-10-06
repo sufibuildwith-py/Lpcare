@@ -147,7 +147,7 @@ export const ANATOMY_LAYERS: AnatomyLayer[] = [
       'The primary window to your digital work. We repair broken glass, dead backlight circuits, vertical color lines, flickering eDP cables, and pressure bleed spots.',
     commonIssues: ['Flickering lines', 'Cracked glass', 'No backlight', 'Dim display', 'Ghost touch'],
     repairType: 'Panel replacement & eDP flex cable rebuilding',
-    image: 'https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?auto=format&fit=crop&w=1000&q=80',
+    image: 'https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?auto=format&fit=crop&w=720&q=75',
   },
   {
     id: 'hinge',
@@ -159,7 +159,7 @@ export const ANATOMY_LAYERS: AnatomyLayer[] = [
       'Stiff hinges generate torque that rips brass anchor nuts straight out of the plastic palmrest. We reconstruct internal chassis pillars and adjust hinge tension smoothly.',
     commonIssues: ['Screen won’t close', 'Cracking plastic', 'Loose display wobble', 'Broken corner'],
     repairType: 'Brass threaded insert reconstruction & torque calibration',
-    image: 'https://images.unsplash.com/photo-1593642632823-8f785ba67e45?auto=format&fit=crop&w=1000&q=80',
+    image: 'https://images.unsplash.com/photo-1593642632823-8f785ba67e45?auto=format&fit=crop&w=720&q=75',
   },
   {
     id: 'keyboard',
@@ -171,7 +171,7 @@ export const ANATOMY_LAYERS: AnatomyLayer[] = [
       'Spilled water or sticky keys? We replace individual scissor clips, clean membrane contact pads, and install full riveted top-case keyboard assemblies.',
     commonIssues: ['Keys typing twice', 'Dead spacebar', 'Erratic trackpad cursor', 'Liquid sticky keys'],
     repairType: 'Riveted keyboard assembly & capacitive trackpad replacement',
-    image: 'https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=1000&q=80',
+    image: 'https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=720&q=75',
   },
   {
     id: 'battery',
@@ -183,7 +183,7 @@ export const ANATOMY_LAYERS: AnatomyLayer[] = [
       'Swollen batteries pose a severe safety hazard and bend laptop trackpads. We install genuine high-density battery cells with verified cycle counts.',
     commonIssues: ['Drains in 15 mins', 'Swollen trackpad bulge', 'Plugged in not charging', 'Shutdown at 40%'],
     repairType: 'Original OEM cell replacement & BMS cycle reset',
-    image: 'https://images.unsplash.com/photo-1609743522653-52354461eb27?auto=format&fit=crop&w=1000&q=80',
+    image: 'https://images.unsplash.com/photo-1609743522653-52354461eb27?auto=format&fit=crop&w=720&q=75',
   },
   {
     id: 'thermals',
@@ -195,7 +195,7 @@ export const ANATOMY_LAYERS: AnatomyLayer[] = [
       'Blocked exhaust fins turn laptops into ovens. Our ultrasonic cleaning and phase-change thermal paste bring peak gaming and render temps down by 15°C to 25°C.',
     commonIssues: ['Loud fan noise', 'Excessive heat on lap', 'Sudden shutdown while gaming', 'Lag after 10 mins'],
     repairType: 'Micro-fin ultrasonic purge & Honeywell PTM7950 repasting',
-    image: 'https://images.unsplash.com/photo-1591799264318-7e6ef8ddb7ea?auto=format&fit=crop&w=1000&q=80',
+    image: 'https://images.unsplash.com/photo-1591799264318-7e6ef8ddb7ea?auto=format&fit=crop&w=720&q=75',
   },
   {
     id: 'motherboard',
@@ -207,7 +207,7 @@ export const ANATOMY_LAYERS: AnatomyLayer[] = [
       'The command center of your laptop. Instead of replacing expensive motherboards, our technicians micro-solder burned capacitors, replace charging ICs, and restore dead boards.',
     commonIssues: ['Completely dead / No light', 'Liquid damage corrosion', 'BIOS bricked', 'GPU artifacts'],
     repairType: 'Component-level micro-soldering & BGA silicon rework',
-    image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1000&q=80',
+    image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=720&q=75',
   },
 ]
 
@@ -221,7 +221,7 @@ export const REPAIR_CASES: RepairCase[] = [
     diagnosis: 'Cracked OLED substrate and sheared magnesium top-case threaded standoffs.',
     solution: 'Installed OEM Sharp 4K OLED panel, rebuilt structural anchor pillars with industrial resin, and recalibrated hinge tension.',
     turnaround: '24 Hours',
-    image: 'https://images.unsplash.com/photo-1593642702821-c8da6771f0c6?auto=format&fit=crop&w=1200&q=80',
+    image: 'https://images.unsplash.com/photo-1593642702821-c8da6771f0c6?auto=format&fit=crop&w=800&q=75',
     specs: {
       partReplaced: 'OEM 4K OLED Assembly + CNC Hinge Pillar',
       benchmarkAfter: '100% DCI-P3 Color Accuracy Verified',
@@ -236,7 +236,7 @@ export const REPAIR_CASES: RepairCase[] = [
     diagnosis: 'Corroded PPBUS_G3H power rail and blown CD3217 USB-C power delivery controller chip.',
     solution: 'Ultrasonic logic board decontamination, replaced blown CD3217 IC and 3 decoupling capacitors under microscope.',
     turnaround: '48 Hours',
-    image: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=1200&q=80',
+    image: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=800&q=75',
     specs: {
       partReplaced: 'CD3217 PD Controller + SMD Ceramic Caps',
       benchmarkAfter: 'All 3 Thunderbolt 4 Ports 100W PD Restored',
@@ -251,7 +251,7 @@ export const REPAIR_CASES: RepairCase[] = [
     diagnosis: 'Dried factory liquid metal crusting causing dry spots, plus shorted 12V GPU phase MOSFET.',
     solution: 'Replaced shorted Vishay DrMOS power stage, ultrasonic cleaned vapor chamber, and applied Honeywell PTM7950 phase-change material.',
     turnaround: '36 Hours',
-    image: 'https://images.unsplash.com/photo-1603302576837-37561b2e2302?auto=format&fit=crop&w=1200&q=80',
+    image: 'https://images.unsplash.com/photo-1603302576837-37561b2e2302?auto=format&fit=crop&w=800&q=75',
     specs: {
       partReplaced: 'DrMOS Power Stage + PTM7950 Thermal Pad',
       benchmarkAfter: 'Cinebench R23 Max Temp: 76°C (Down from 101°C)',
@@ -266,7 +266,7 @@ export const REPAIR_CASES: RepairCase[] = [
     diagnosis: 'Severe lithium pouch gas accumulation and cracked solder joints on the surface-mount Type-C receptacle.',
     solution: 'Safely disposed swollen pack, installed certified OEM 66Wh battery, and micro-soldered reinforced Type-C charging port.',
     turnaround: '6 Hours',
-    image: 'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=1200&q=80',
+    image: 'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=800&q=75',
     specs: {
       partReplaced: 'Original 66Wh HP Battery + Type-C Receptacle',
       benchmarkAfter: '11.5 Hours Continuous Battery Run-time',
@@ -287,25 +287,25 @@ export const BRANDS_LIST: BrandItem[] = [
 ]
 
 export const MARQUEE_ROW_1 = [
-  { label: 'RETINA / OLED SCREEN REPLACEMENT', img: 'https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?auto=format&fit=crop&w=600&q=80' },
-  { label: 'MOTHERBOARD CHIP-LEVEL SOLDERING', img: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=600&q=80' },
-  { label: 'CNC MECHANICAL HINGE RECONSTRUCTION', img: 'https://images.unsplash.com/photo-1593642632823-8f785ba67e45?auto=format&fit=crop&w=600&q=80' },
-  { label: 'OEM HIGH-DENSITY BATTERY PACKS', img: 'https://images.unsplash.com/photo-1609743522653-52354461eb27?auto=format&fit=crop&w=600&q=80' },
-  { label: 'GEN4 NVMe SSD STORAGE UPGRADES', img: 'https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?auto=format&fit=crop&w=600&q=80' },
-  { label: 'HIGH-FREQUENCY DDR5 RAM EXPANSION', img: 'https://images.unsplash.com/photo-1562976540-1502c2145186?auto=format&fit=crop&w=600&q=80' },
-  { label: 'TURBINE FAN & VAPOR CHAMBER COOLING', img: 'https://images.unsplash.com/photo-1591799264318-7e6ef8ddb7ea?auto=format&fit=crop&w=600&q=80' },
-  { label: 'TYPE-C THUNDERBOLT & DC PORT REPAIR', img: 'https://images.unsplash.com/photo-1588508065123-287b28e013da?auto=format&fit=crop&w=600&q=80' },
+  { label: 'RETINA / OLED SCREEN REPLACEMENT', img: 'https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?auto=format&fit=crop&w=480&q=75' },
+  { label: 'MOTHERBOARD CHIP-LEVEL SOLDERING', img: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=480&q=75' },
+  { label: 'CNC MECHANICAL HINGE RECONSTRUCTION', img: 'https://images.unsplash.com/photo-1593642632823-8f785ba67e45?auto=format&fit=crop&w=480&q=75' },
+  { label: 'OEM HIGH-DENSITY BATTERY PACKS', img: 'https://images.unsplash.com/photo-1609743522653-52354461eb27?auto=format&fit=crop&w=480&q=75' },
+  { label: 'GEN4 NVMe SSD STORAGE UPGRADES', img: 'https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?auto=format&fit=crop&w=480&q=75' },
+  { label: 'HIGH-FREQUENCY DDR5 RAM EXPANSION', img: 'https://images.unsplash.com/photo-1562976540-1502c2145186?auto=format&fit=crop&w=480&q=75' },
+  { label: 'TURBINE FAN & VAPOR CHAMBER COOLING', img: 'https://images.unsplash.com/photo-1591799264318-7e6ef8ddb7ea?auto=format&fit=crop&w=480&q=75' },
+  { label: 'TYPE-C THUNDERBOLT & DC PORT REPAIR', img: 'https://images.unsplash.com/photo-1588508065123-287b28e013da?auto=format&fit=crop&w=480&q=75' },
 ]
 
 export const MARQUEE_ROW_2 = [
-  { label: 'THERMAL IMAGING CIRCUIT DIAGNOSIS', img: 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=600&q=80' },
-  { label: 'ISL & BQ CHARGING IC REPLACEMENT', img: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=600&q=80' },
-  { label: 'HONEYWELL PTM7950 THERMAL REPASTE', img: 'https://images.unsplash.com/photo-1555680202-c86f0e12f086?auto=format&fit=crop&w=600&q=80' },
-  { label: 'WINDOWS 11 & macOS CRASH RESTORATION', img: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=600&q=80' },
-  { label: 'BLUE SCREEN BSOD & KERNEL PANIC FIX', img: 'https://images.unsplash.com/photo-1629654297299-c8506221ca97?auto=format&fit=crop&w=600&q=80' },
-  { label: 'DEAD BOARD DATA RECOVERY LAB', img: 'https://images.unsplash.com/photo-1563770660941-20978e870e26?auto=format&fit=crop&w=600&q=80' },
-  { label: 'DUAL-BIOS EEPROM REPROGRAMMING', img: 'https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=600&q=80' },
-  { label: 'LIQUID INGRESS ULTRASONIC DECONTAMINATION', img: 'https://images.unsplash.com/photo-1531497865144-0464ef8fb9a9?auto=format&fit=crop&w=600&q=80' },
+  { label: 'THERMAL IMAGING CIRCUIT DIAGNOSIS', img: 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=480&q=75' },
+  { label: 'ISL & BQ CHARGING IC REPLACEMENT', img: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=480&q=75' },
+  { label: 'HONEYWELL PTM7950 THERMAL REPASTE', img: 'https://images.unsplash.com/photo-1555680202-c86f0e12f086?auto=format&fit=crop&w=480&q=75' },
+  { label: 'WINDOWS 11 & macOS CRASH RESTORATION', img: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=480&q=75' },
+  { label: 'BLUE SCREEN BSOD & KERNEL PANIC FIX', img: 'https://images.unsplash.com/photo-1629654297299-c8506221ca97?auto=format&fit=crop&w=480&q=75' },
+  { label: 'DEAD BOARD DATA RECOVERY LAB', img: 'https://images.unsplash.com/photo-1563770660941-20978e870e26?auto=format&fit=crop&w=480&q=75' },
+  { label: 'DUAL-BIOS EEPROM REPROGRAMMING', img: 'https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=480&q=75' },
+  { label: 'LIQUID INGRESS ULTRASONIC DECONTAMINATION', img: 'https://images.unsplash.com/photo-1531497865144-0464ef8fb9a9?auto=format&fit=crop&w=480&q=75' },
 ]
 
 export const KANPUR_CONTACT = {

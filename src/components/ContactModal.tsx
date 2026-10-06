@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { X, Send, CheckCircle2, Sparkles, AlertCircle } from 'lucide-react'
-import confetti from 'canvas-confetti'
 
 interface ContactModalProps {
   isOpen: boolean
@@ -27,7 +26,7 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
-    city: 'Kanpur',
+    city: 'Kanpur (Somdutt Plaza)',
     brand: 'Dell',
     model: '',
     selectedProblems: [] as string[],
@@ -44,26 +43,31 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
     }))
   }
 
+  const isPrayagraj = formData.city.toLowerCase().includes('prayagraj')
+  const targetPhone = isPrayagraj ? '919889880973' : '918795530133'
+  const displayPhone = isPrayagraj ? '+91 98898 80973' : '+91 87955 30133'
+  const centreTitle = isPrayagraj ? 'Prayagraj Service Centre' : 'Kanpur Service Centre'
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitted(true)
 
-    // Trigger celebratory confetti
-    try {
-      confetti({
-        particleCount: 80,
-        spread: 70,
-        origin: { y: 0.6 },
-        colors: ['#64131C', '#841B26', '#F4F0E8', '#FFFFFF'],
+    // Dynamically load confetti only when triggered, saving initial JS payload
+    import('canvas-confetti')
+      .then((m) => {
+        const confetti = m.default
+        confetti({
+          particleCount: 80,
+          spread: 70,
+          origin: { y: 0.6 },
+          colors: ['#64131C', '#841B26', '#F4F0E8', '#FFFFFF'],
+        })
       })
-    } catch {
-      // safe fallback
-    }
+      .catch(() => {})
 
     setTimeout(() => {
-      // Direct WhatsApp submission to Kanpur active number +918795530133
       const msg = encodeURIComponent(
-        `Hello Laptop Care, I'd like to request a laptop diagnosis at the Kanpur service centre.\n\n` +
+        `Hello Laptop Care, I'd like to request a laptop diagnosis at the ${centreTitle}.\n\n` +
           `• Name: ${formData.name}\n` +
           `• Phone: ${formData.phone}\n` +
           `• Centre: ${formData.city}\n` +
@@ -71,7 +75,8 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
           `• Issues: ${formData.selectedProblems.join(', ') || 'General Inspection'}\n` +
           `• Details: ${formData.description || 'None'}`
       )
-      window.open(`https://wa.me/918795530133?text=${msg}`, '_blank')
+      // Open securely with noopener,noreferrer
+      window.open(`https://wa.me/${targetPhone}?text=${msg}`, '_blank', 'noopener,noreferrer')
 
       setIsSubmitted(false)
       onClose()
@@ -124,7 +129,7 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
                 Diagnosis Ticket Created
               </h3>
               <p className="text-sm text-sand/70 max-w-md font-light leading-relaxed">
-                Connecting you with our lead technician at Kanpur Service Centre. Opening WhatsApp (+918795530133)...
+                Connecting you with our lead technician at {centreTitle}. Opening WhatsApp ({displayPhone})...
               </p>
             </motion.div>
           ) : (

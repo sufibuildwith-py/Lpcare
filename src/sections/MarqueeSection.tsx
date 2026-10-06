@@ -1,48 +1,85 @@
-import React, { useRef, useState, useEffect } from 'react'
+import React, { useRef, useEffect } from 'react'
 import { MARQUEE_ROW_1, MARQUEE_ROW_2 } from '../data/repairData'
 import { Cpu } from 'lucide-react'
 
+// Stable static triples defined outside component to avoid reallocation
+const TRIPLED_ROW_1 = [...MARQUEE_ROW_1, ...MARQUEE_ROW_1, ...MARQUEE_ROW_1]
+const TRIPLED_ROW_2 = [...MARQUEE_ROW_2, ...MARQUEE_ROW_2, ...MARQUEE_ROW_2]
+
 export const MarqueeSection: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null)
-  const [scrollOffset, setScrollOffset] = useState<number>(0)
-
-  // Tripled sets for seamless continuous wrap
-  const tripledRow1 = [...MARQUEE_ROW_1, ...MARQUEE_ROW_1, ...MARQUEE_ROW_1]
-  const tripledRow2 = [...MARQUEE_ROW_2, ...MARQUEE_ROW_2, ...MARQUEE_ROW_2]
+  const row1Ref = useRef<HTMLDivElement>(null)
+  const row2Ref = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
+    let isVisible = false
+    let sectionTop = 0
     let ticking = false
 
-    const handleScroll = () => {
+    const updateMetrics = () => {
+      if (sectionRef.current) {
+        const rect = sectionRef.current.getBoundingClientRect()
+        sectionTop = rect.top + window.scrollY
+      }
+    }
+
+    const renderTransforms = () => {
+      const offset = (window.scrollY - sectionTop + window.innerHeight) * 0.35
+      const row1Translate = offset * 0.8 - 400
+      const row2Translate = -(offset * 1.85) - 200
+
+      if (row1Ref.current) {
+        row1Ref.current.style.transform = `translate3d(${row1Translate}px, 0, 0)`
+      }
+      if (row2Ref.current) {
+        row2Ref.current.style.transform = `translate3d(${row2Translate}px, 0, 0)`
+      }
+      ticking = false
+    }
+
+    const onScroll = () => {
+      if (!isVisible) return
       if (!ticking) {
-        window.requestAnimationFrame(() => {
-          if (sectionRef.current) {
-            const rect = sectionRef.current.getBoundingClientRect()
-            const sectionTop = rect.top + window.scrollY
-            const offset = (window.scrollY - sectionTop + window.innerHeight) * 0.35
-            setScrollOffset(offset)
-          }
-          ticking = false
-        })
+        window.requestAnimationFrame(renderTransforms)
         ticking = true
       }
     }
 
-    handleScroll()
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    window.addEventListener('resize', handleScroll, { passive: true })
+    const onResize = () => {
+      updateMetrics()
+      if (isVisible) {
+        renderTransforms()
+      }
+    }
+
+    updateMetrics()
+    renderTransforms()
+
+    // IntersectionObserver halts all scroll calculations when marquee is offscreen
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        isVisible = entry.isIntersecting
+        if (isVisible) {
+          updateMetrics()
+          renderTransforms()
+        }
+      },
+      { rootMargin: '250px 0px' }
+    )
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current)
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true })
+    window.addEventListener('resize', onResize, { passive: true })
 
     return () => {
-      window.removeEventListener('scroll', handleScroll)
-      window.removeEventListener('resize', handleScroll)
+      observer.disconnect()
+      window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('resize', onResize)
     }
   }, [])
-
-  // Calculate distinct scroll translations:
-  // Row 1 moves left-to-right.
-  // Row 2 moves right-to-left at an accelerated speed (1.85x) so it never feels slow.
-  const row1Translate = scrollOffset * 0.8 - 400
-  const row2Translate = -(scrollOffset * 1.85) - 200
 
   return (
     <section
@@ -71,12 +108,11 @@ export const MarqueeSection: React.FC = () => {
       <div className="flex flex-col gap-4 sm:gap-6 w-full">
         {/* ROW 1: Moves RIGHT on scroll */}
         <div
+          ref={row1Ref}
           className="flex gap-4 sm:gap-6 w-max will-change-transform"
-          style={{
-            transform: `translateX(${row1Translate}px)`,
-          }}
+          style={{ transform: 'translate3d(-400px, 0, 0)' }}
         >
-          {tripledRow1.map((item, index) => (
+          {TRIPLED_ROW_1.map((item, index) => (
             <div
               key={`row1-${index}`}
               className="group relative w-[280px] sm:w-[340px] md:w-[400px] h-[180px] sm:h-[220px] md:h-[250px] shrink-0 rounded-2xl sm:rounded-3xl overflow-hidden bg-dark-card border border-sand/10 hover:border-maroon/60 transition-all duration-300 shadow-xl"
@@ -86,6 +122,7 @@ export const MarqueeSection: React.FC = () => {
                 src={item.img}
                 alt={item.label}
                 loading="lazy"
+                decoding="async"
                 className="w-full h-full object-cover select-none transition-transform duration-700 group-hover:scale-105 filter brightness-90 group-hover:brightness-100"
               />
 
@@ -107,12 +144,11 @@ export const MarqueeSection: React.FC = () => {
 
         {/* ROW 2: Moves LEFT on scroll (Accelerated 1.85x speed for snappy, brisk flow) */}
         <div
+          ref={row2Ref}
           className="flex gap-4 sm:gap-6 w-max will-change-transform"
-          style={{
-            transform: `translateX(${row2Translate}px)`,
-          }}
+          style={{ transform: 'translate3d(-200px, 0, 0)' }}
         >
-          {tripledRow2.map((item, index) => (
+          {TRIPLED_ROW_2.map((item, index) => (
             <div
               key={`row2-${index}`}
               className="group relative w-[280px] sm:w-[340px] md:w-[400px] h-[180px] sm:h-[220px] md:h-[250px] shrink-0 rounded-2xl sm:rounded-3xl overflow-hidden bg-dark-card border border-sand/10 hover:border-maroon/60 transition-all duration-300 shadow-xl"
@@ -122,6 +158,7 @@ export const MarqueeSection: React.FC = () => {
                 src={item.img}
                 alt={item.label}
                 loading="lazy"
+                decoding="async"
                 className="w-full h-full object-cover select-none transition-transform duration-700 group-hover:scale-105 filter brightness-90 group-hover:brightness-100"
               />
 

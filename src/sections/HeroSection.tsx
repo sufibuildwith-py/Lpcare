@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react'
-import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
+import { motion, useScroll, useTransform, useMotionValue, useSpring, AnimatePresence } from 'framer-motion'
 import { ArrowDown, Sparkles } from 'lucide-react'
 
 interface HeroSectionProps {
@@ -19,9 +19,19 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenContact }) => {
 
   const containerRef = useRef<HTMLElement>(null)
 
-  // Interactive mouse/pointer tracking for 3D magnetic laptop tilt
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 })
-  const [isHovered, setIsHovered] = useState(false)
+  // MotionValue-driven pointer tracking: 0 React re-renders on mouse movement
+  const mouseNormX = useMotionValue(0)
+  const mouseNormY = useMotionValue(0)
+
+  // Spring physics matching: stiffness: 130, damping: 18, mass: 0.75
+  const springNormX = useSpring(mouseNormX, { stiffness: 130, damping: 18, mass: 0.75 })
+  const springNormY = useSpring(mouseNormY, { stiffness: 130, damping: 18, mass: 0.75 })
+
+  // Subtle 3D magnetic transforms (restrained, elegant, zero jitter)
+  const tiltX = useTransform(springNormY, (y) => y * -6.5)
+  const tiltY = useTransform(springNormX, (x) => x * 8.5)
+  const translateX = useTransform(springNormX, (x) => x * 16)
+  const translateY = useTransform(springNormY, (y) => y * 10)
 
   // Scroll parallax transforms for when user scrolls past hero
   const { scrollYProgress } = useScroll({
@@ -50,38 +60,55 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenContact }) => {
     }
   }, [introState])
 
-  // Mouse move tracking (desktop)
+  // Desktop-only mousemove tracking with offscreen IntersectionObserver gating
   useEffect(() => {
     if (introState !== 'ready') return
+    if (typeof window === 'undefined') return
+
+    // Never attach on touch-only devices to save CPU and battery
+    const isFinePointer = window.matchMedia('(pointer: fine)').matches
+    if (!isFinePointer) return
+
+    let isHeroVisible = true
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        isHeroVisible = entry.isIntersecting
+        if (!isHeroVisible) {
+          mouseNormX.set(0)
+          mouseNormY.set(0)
+        }
+      },
+      { rootMargin: '100px 0px' }
+    )
+
+    if (containerRef.current) {
+      observer.observe(containerRef.current)
+    }
 
     const handleMouseMove = (e: MouseEvent) => {
+      if (!isHeroVisible) return
       const { innerWidth, innerHeight } = window
       // Normalize from -1 to +1 relative to viewport center
       const normX = (e.clientX / innerWidth) * 2 - 1
       const normY = (e.clientY / innerHeight) * 2 - 1
-      setMousePos({ x: normX, y: normY })
-      setIsHovered(true)
+      mouseNormX.set(normX)
+      mouseNormY.set(normY)
     }
 
     const handleMouseLeave = () => {
-      setIsHovered(false)
-      setMousePos({ x: 0, y: 0 })
+      mouseNormX.set(0)
+      mouseNormY.set(0)
     }
 
     window.addEventListener('mousemove', handleMouseMove, { passive: true })
     document.addEventListener('mouseleave', handleMouseLeave)
 
     return () => {
+      observer.disconnect()
       window.removeEventListener('mousemove', handleMouseMove)
       document.removeEventListener('mouseleave', handleMouseLeave)
     }
-  }, [introState])
-
-  // Subtle 3D magnetic transforms (restrained, elegant, zero jitter)
-  const tiltX = isHovered ? mousePos.y * -6.5 : 0
-  const tiltY = isHovered ? mousePos.x * 8.5 : 0
-  const translateX = isHovered ? mousePos.x * 16 : 0
-  const translateY = isHovered ? mousePos.y * 10 : 0
+  }, [introState, mouseNormX, mouseNormY])
 
   return (
     <>
@@ -259,58 +286,47 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenContact }) => {
                   scale: laptopScale,
                   opacity: laptopOpacity,
                   perspective: 1200,
+                  rotateX: tiltX,
+                  rotateY: tiltY,
+                  x: translateX,
+                  y: translateY,
+                  transformStyle: 'preserve-3d',
                 }}
                 initial={{ opacity: 0, scale: 0.88 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.9, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
                 className="pointer-events-auto flex items-center justify-center"
-                onMouseEnter={() => setIsHovered(true)}
-                onMouseLeave={() => setIsHovered(false)}
               >
-                {/* Interactive Spring Container with Ambient Float fallback for mobile */}
+                {/* Interactive Ambient Float Container */}
                 <motion.div
-                  animate={
-                    isHovered
-                      ? {
-                          rotateX: tiltX,
-                          rotateY: tiltY,
-                          x: translateX,
-                          y: translateY,
-                        }
-                      : {
-                          rotateX: [0, 2, 0, -2, 0],
-                          rotateY: [0, -3, 0, 3, 0],
-                          y: [0, -6, 0, 4, 0],
-                        }
-                  }
-                  transition={
-                    isHovered
-                      ? {
-                          type: 'spring',
-                          stiffness: 130,
-                          damping: 18,
-                          mass: 0.75,
-                        }
-                      : {
-                          duration: 8,
-                          repeat: Infinity,
-                          ease: 'easeInOut',
-                        }
-                  }
+                  animate={{
+                    rotateX: [0, 2, 0, -2, 0],
+                    rotateY: [0, -3, 0, 3, 0],
+                    y: [0, -6, 0, 4, 0],
+                  }}
+                  transition={{
+                    duration: 8,
+                    repeat: Infinity,
+                    ease: 'easeInOut',
+                  }}
                   style={{ transformStyle: 'preserve-3d' }}
                   className="relative flex items-center justify-center will-change-transform group cursor-grab active:cursor-grabbing"
                 >
                   {/* Chassis contact shadow */}
                   <div className="absolute -bottom-3 sm:-bottom-4 left-1/2 -translate-x-1/2 w-4/5 h-6 sm:h-8 bg-black/70 rounded-full blur-xl pointer-events-none" />
 
-                  {/* Silver Laptop Asset (Untinted, Metallic Neutral Silver) */}
-                  <img
-                    src="/silver-laptop.png"
-                    alt="Laptop Care Precision Engineering"
-                    className="w-[170px] sm:w-[260px] md:w-[360px] lg:w-[450px] xl:w-[500px] max-w-none h-auto object-contain drop-shadow-[0_20px_45px_rgba(0,0,0,0.9)] filter contrast-[1.02] select-none pointer-events-none"
-                    loading="eager"
-                    draggable={false}
-                  />
+                  {/* Silver Laptop Asset (High-Performance WebP with PNG Fallback) */}
+                  <picture>
+                    <source srcSet="/silver-laptop.webp" type="image/webp" />
+                    <img
+                      src="/silver-laptop.png"
+                      alt="Laptop Care Precision Engineering"
+                      className="w-[170px] sm:w-[260px] md:w-[360px] lg:w-[450px] xl:w-[500px] max-w-none h-auto object-contain drop-shadow-[0_20px_45px_rgba(0,0,0,0.9)] filter contrast-[1.02] select-none pointer-events-none"
+                      loading="eager"
+                      decoding="async"
+                      draggable={false}
+                    />
+                  </picture>
                 </motion.div>
               </motion.div>
             </div>

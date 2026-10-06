@@ -122,6 +122,7 @@ export const AnatomySection: React.FC<AnatomySectionProps> = ({ onOpenContact })
                       alt={activeLayer.name}
                       className="w-full h-full object-cover select-none"
                       loading="lazy"
+                      decoding="async"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-dark-pure/90 via-dark-pure/20 to-transparent pointer-events-none" />
 

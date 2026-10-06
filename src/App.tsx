@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, Suspense, lazy } from 'react'
 import { Navbar } from './components/Navbar'
 import { HeroSection } from './sections/HeroSection'
 import { MarqueeSection } from './sections/MarqueeSection'
@@ -10,11 +10,13 @@ import { BrandsSection } from './sections/BrandsSection'
 import { LocationsSection } from './sections/LocationsSection'
 import { FinalCTASection } from './sections/FinalCTASection'
 import { Footer } from './components/Footer'
-import { ContactModal } from './components/ContactModal'
 import { useLenis } from './hooks/useLenis'
 
+// Code-split modal so it is only loaded on user demand, keeping critical JS lean
+const ContactModal = lazy(() => import('./components/ContactModal').then((m) => ({ default: m.ContactModal })))
+
 export const App: React.FC = () => {
-  // Initialize Lenis 60fps/120fps smooth scrolling
+  // Initialize capability-aware smooth scrolling (active on desktop, native on mobile)
   useLenis()
 
   // Diagnosis intake modal state
@@ -32,7 +34,7 @@ export const App: React.FC = () => {
         {/* 1. Cinematic Interactive Hero (Quote State -> Brand & 3D Laptop Reveal) */}
         <HeroSection onOpenContact={handleOpenContact} />
 
-        {/* 2. Technical Macro Photography Marquee (Two-Row Scroll Reactive) */}
+        {/* 2. Technical Macro Photography Marquee (Direct DOM Transform, RAF Batched) */}
         <MarqueeSection />
 
         {/* 3. About / Trust Statement ("We fix what others tell you to replace") */}
@@ -60,8 +62,12 @@ export const App: React.FC = () => {
       {/* 10. Studio Footer */}
       <Footer />
 
-      {/* Diagnosis Intake Modal */}
-      <ContactModal isOpen={isContactOpen} onClose={handleCloseContact} />
+      {/* Diagnosis Intake Modal (Loaded on demand with zero layout shift) */}
+      {isContactOpen && (
+        <Suspense fallback={null}>
+          <ContactModal isOpen={isContactOpen} onClose={handleCloseContact} />
+        </Suspense>
+      )}
     </div>
   )
 }

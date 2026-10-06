@@ -132,6 +132,7 @@ const RepairCard: React.FC<RepairCardProps> = ({
               src={repair.image}
               alt={`${repair.model} Repair`}
               loading="lazy"
+              decoding="async"
               className="w-full h-full object-cover select-none transition-transform duration-700 group-hover:scale-105"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-dark-pure/90 via-dark-pure/20 to-transparent pointer-events-none" />
