@@ -24,7 +24,7 @@ export const Footer: React.FC = () => {
 
             <div className="flex items-center gap-2 text-xs font-mono text-sand/50 mt-1">
               <span className="w-2 h-2 rounded-full bg-emerald-500 inline-block" />
-              <span>Studios in Kanpur &amp; Prayagraj (Allahabad)</span>
+              <span>Service Centre in Kanpur · Prayagraj (Soon to be added)</span>
             </div>
           </div>
 
@@ -49,17 +49,24 @@ export const Footer: React.FC = () => {
               Workbench Support
             </span>
             <div className="flex flex-col gap-3 text-xs text-sand/70 font-light">
-              <div className="flex items-center gap-2">
-                <MapPin className="w-3.5 h-3.5 text-maroon-light shrink-0" />
-                <span>Mall Road, Kanpur, UP</span>
+              <div className="flex items-start gap-2">
+                <MapPin className="w-3.5 h-3.5 text-maroon-light shrink-0 mt-0.5" />
+                <span>Third floor somdutt plaza, Landmark, Kanpur, UP</span>
               </div>
               <div className="flex items-center gap-2">
-                <MapPin className="w-3.5 h-3.5 text-maroon-light shrink-0" />
-                <span>Civil Lines, Prayagraj, UP</span>
+                <MapPin className="w-3.5 h-3.5 text-sand/40 shrink-0" />
+                <span className="text-sand/50 italic">Prayagraj: soon to be added</span>
               </div>
               <div className="flex items-center gap-2">
                 <Phone className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-                <span className="font-mono">+91 98765 43210</span>
+                <a
+                  href="https://wa.me/918795530133"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-mono hover:text-emerald-400 transition-colors"
+                >
+                  +918795530133
+                </a>
               </div>
               <div className="flex items-center gap-2">
                 <Mail className="w-3.5 h-3.5 text-sand/50 shrink-0" />

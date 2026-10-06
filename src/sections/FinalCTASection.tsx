@@ -45,7 +45,7 @@ export const FinalCTASection: React.FC<FinalCTASectionProps> = ({ onOpenContact 
 
         <FadeIn delay={0.3} y={20}>
           <p className="mt-2 text-xs sm:text-sm text-sand/55 font-light max-w-lg">
-            Certified chip-level diagnostics in Kanpur &amp; Prayagraj. Get a clear explanation and verified quote before any work starts.
+            Certified chip-level diagnostics at our Kanpur service centre (Prayagraj soon to be added). Get a clear explanation and verified quote before any work starts.
           </p>
         </FadeIn>
 
@@ -60,7 +60,7 @@ export const FinalCTASection: React.FC<FinalCTASectionProps> = ({ onOpenContact 
           </button>
 
           <a
-            href="https://wa.me/919876543210?text=Hi%20Laptop%20Care,%20I%20need%20a%20laptop%20diagnosis."
+            href="https://wa.me/918795530133?text=Hello%20Laptop%20Care,%20I%27d%20like%20to%20request%20a%20laptop%20diagnosis%20at%20the%20Kanpur%20service%20centre."
             target="_blank"
             rel="noopener noreferrer"
             className="w-full sm:w-auto px-7 py-4 rounded-full glass-dark border border-sand/20 text-sand hover:text-white font-semibold uppercase tracking-wider text-xs sm:text-sm transition-colors flex items-center justify-center gap-2.5 active:scale-95"

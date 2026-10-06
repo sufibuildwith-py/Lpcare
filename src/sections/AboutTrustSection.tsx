@@ -29,8 +29,8 @@ export const AboutTrustSection: React.FC<AboutTrustSectionProps> = ({ onOpenCont
     },
     {
       icon: Wrench,
-      title: 'Kanpur & Prayagraj Hubs',
-      desc: 'Dedicated physical workbenches with fast-track express turnarounds and local pickup availability.',
+      title: 'Kanpur Service Centre',
+      desc: 'Dedicated physical workbench with fast-track express turnarounds at Somdutt Plaza, Kanpur.',
     },
   ]
 
@@ -108,7 +108,7 @@ export const AboutTrustSection: React.FC<AboutTrustSectionProps> = ({ onOpenCont
                   Don&apos;t write off your laptop yet.
                 </h4>
                 <p className="text-xs sm:text-sm text-sand/65 font-light mt-0.5">
-                  Bring it to our studio in Kanpur or Prayagraj for a bench circuit assessment.
+                  Bring it to our Kanpur service centre at Somdutt Plaza for a bench circuit assessment.
                 </p>
               </div>
             </div>

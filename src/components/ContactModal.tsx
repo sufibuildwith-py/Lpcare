@@ -61,17 +61,17 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
     }
 
     setTimeout(() => {
-      // Auto construct WhatsApp link for direct submission
+      // Direct WhatsApp submission to Kanpur active number +918795530133
       const msg = encodeURIComponent(
-        `*New Laptop Care Diagnosis Request*\n` +
-          `• *Name:* ${formData.name}\n` +
-          `• *Phone:* ${formData.phone}\n` +
-          `• *Location:* ${formData.city}\n` +
-          `• *Laptop:* ${formData.brand} ${formData.model}\n` +
-          `• *Issues:* ${formData.selectedProblems.join(', ') || 'General Inspection'}\n` +
-          `• *Details:* ${formData.description || 'None'}`
+        `Hello Laptop Care, I'd like to request a laptop diagnosis at the Kanpur service centre.\n\n` +
+          `• Name: ${formData.name}\n` +
+          `• Phone: ${formData.phone}\n` +
+          `• Centre: ${formData.city}\n` +
+          `• Laptop: ${formData.brand} ${formData.model || 'N/A'}\n` +
+          `• Issues: ${formData.selectedProblems.join(', ') || 'General Inspection'}\n` +
+          `• Details: ${formData.description || 'None'}`
       )
-      window.open(`https://wa.me/919876543210?text=${msg}`, '_blank')
+      window.open(`https://wa.me/918795530133?text=${msg}`, '_blank')
 
       setIsSubmitted(false)
       onClose()
@@ -124,7 +124,7 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
                 Diagnosis Ticket Created
               </h3>
               <p className="text-sm text-sand/70 max-w-md font-light leading-relaxed">
-                Connecting you with our lead chip-level engineer in {formData.city}. Opening WhatsApp chat...
+                Connecting you with our lead technician at Kanpur Service Centre. Opening WhatsApp (+918795530133)...
               </p>
             </motion.div>
           ) : (
@@ -167,7 +167,7 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
                     <input
                       type="tel"
                       required
-                      placeholder="+91 98765 XXXXX"
+                      placeholder="+91 87955 XXXXX"
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                       className="w-full px-4 py-2.5 rounded-xl bg-dark-pure/70 border border-sand/15 text-sand placeholder:text-sand/30 text-sm focus:outline-none focus:border-maroon-light transition-colors"
@@ -179,16 +179,15 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
                   <div>
                     <label className="block text-[11px] font-mono uppercase tracking-widest text-sand/60 mb-1.5">
-                      Service Studio *
+                      Service Centre *
                     </label>
                     <select
                       value={formData.city}
                       onChange={(e) => setFormData({ ...formData, city: e.target.value })}
                       className="w-full px-3 py-2.5 rounded-xl bg-dark-pure/70 border border-sand/15 text-sand text-sm focus:outline-none focus:border-maroon-light transition-colors"
                     >
-                      <option value="Kanpur">Kanpur Studio</option>
-                      <option value="Prayagraj">Prayagraj (Allahabad)</option>
-                      <option value="Doorstep Pickup">Request Doorstep Pickup</option>
+                      <option value="Kanpur (Somdutt Plaza)">Kanpur Service Centre</option>
+                      <option value="Prayagraj (Soon to be added)">Prayagraj (Soon to be added)</option>
                     </select>
                   </div>
                   <div>

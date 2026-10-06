@@ -308,33 +308,65 @@ export const MARQUEE_ROW_2 = [
   { label: 'LIQUID INGRESS ULTRASONIC DECONTAMINATION', img: 'https://images.unsplash.com/photo-1531497865144-0464ef8fb9a9?auto=format&fit=crop&w=600&q=80' },
 ]
 
-export const LOCATIONS_DATA = [
+export const KANPUR_CONTACT = {
+  city: 'KANPUR',
+  name: 'Kanpur Service Centre',
+  address: 'Third floor somdutt plaza, Landmark, Kanpur, Uttar Pradesh',
+  phone: '+918795530133',
+  phoneDisplay: '+918795530133',
+  phoneLink: 'tel:+918795530133',
+  whatsappUrl: 'https://wa.me/918795530133',
+  defaultWhatsAppMessage: "Hello Laptop Care, I'd like to request a laptop diagnosis at the Kanpur service centre.",
+  hours: 'Open 24x7 · Sunday: 4 hours',
+}
+
+export const PRAYAGRAJ_CONTACT = {
+  city: 'PRAYAGRAJ',
+  name: 'Prayagraj Service Centre',
+  address: 'soon to be added',
+  phone: 'soon to be added',
+  hours: 'soon to be added',
+}
+
+export interface LocationHub {
+  city: string
+  isOperational: boolean
+  address: string
+  phone: string
+  phoneLink?: string
+  whatsappUrl?: string
+  hours: string
+  services: string[]
+  ctaText: string
+  ctaDisabled?: boolean
+}
+
+export const LOCATIONS_DATA: LocationHub[] = [
   {
     city: 'KANPUR',
-    hubName: 'Kanpur Central Chip-Level Lab',
-    address: 'Mall Road / Kakadeo Hub, Kanpur, Uttar Pradesh',
-    badge: 'Primary Micro-Soldering Hub',
-    phone: '+91 98765 43210 (Direct Workbench Helpline)',
-    hours: 'Mon — Sat: 10:00 AM – 8:30 PM | Sun: Priority Drop-off',
+    isOperational: true,
+    address: 'Third floor somdutt plaza, Landmark, Kanpur, Uttar Pradesh',
+    phone: '+918795530133',
+    phoneLink: 'tel:+918795530133',
+    whatsappUrl: 'https://wa.me/918795530133?text=Hello%20Laptop%20Care,%20I%27d%20like%20to%20request%20a%20laptop%20diagnosis%20at%20the%20Kanpur%20service%20centre.',
+    hours: 'Open 24x7 · Sunday: 4 hours',
     services: [
-      'Same-day display & battery replacement',
-      'Advanced BGA rework & motherboard repair center',
-      'Walk-in inspection counter with live diagnosis',
-      'Local doorstep pickup across Kanpur',
+      'Walk-in hardware diagnosis & assessment',
+      'Display, battery, keyboard & hinge replacement',
+      'Chip-level motherboard & micro-soldering repair',
     ],
+    ctaText: 'WhatsApp Kanpur Centre',
   },
   {
     city: 'PRAYAGRAJ',
-    hubName: 'Prayagraj (Allahabad) Studio',
-    address: 'Civil Lines / University Hub, Prayagraj (Allahabad), UP',
-    badge: 'Hardware & Data Lab',
-    phone: '+91 98765 43211 (Prayagraj Desk)',
-    hours: 'Mon — Sat: 10:00 AM – 8:00 PM',
+    isOperational: false,
+    address: 'soon to be added',
+    phone: 'soon to be added',
+    hours: 'soon to be added',
     services: [
-      'Screen, keyboard, hinge & battery workbench',
-      'Student & University express turnaround desk',
-      'Corrupted SSD & dead laptop data recovery',
-      'Thermal overhaul & gaming tuning service',
+      'soon to be added',
     ],
+    ctaText: 'Soon to be added',
+    ctaDisabled: true,
   },
 ]

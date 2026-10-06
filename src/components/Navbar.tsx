@@ -137,9 +137,14 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenContact }) => {
                   <span className="flex items-center gap-1">
                     <MapPin className="w-3 h-3 text-maroon-light" /> Kanpur & Prayagraj
                   </span>
-                  <span className="flex items-center gap-1">
-                    <Phone className="w-3 h-3 text-emerald-400" /> WhatsApp Active
-                  </span>
+                  <a
+                    href="https://wa.me/918795530133"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-1 hover:text-emerald-400 transition-colors"
+                  >
+                    <Phone className="w-3 h-3 text-emerald-400" /> +918795530133
+                  </a>
                 </div>
               </div>
             </div>

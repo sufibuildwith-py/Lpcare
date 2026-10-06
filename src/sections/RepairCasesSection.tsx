@@ -189,7 +189,7 @@ export const RepairCasesSection: React.FC<RepairCasesSectionProps> = ({ onOpenCo
 
         <FadeIn delay={0.2} y={20}>
           <p className="mt-4 text-xs sm:text-sm md:text-base text-sand/60 font-light max-w-xl mx-auto">
-            Real production cases from our Kanpur and Prayagraj workbenches — diagnosed accurately, rebuilt with precision components.
+            Real production cases from our Kanpur service centre workbench — diagnosed accurately, rebuilt with precision components.
           </p>
         </FadeIn>
       </div>
